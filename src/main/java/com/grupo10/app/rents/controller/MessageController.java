@@ -4,8 +4,8 @@
  */
 package com.grupo10.app.rents.controller;
 
-import com.grupo10.app.rents.model.IQuadbikeRepository;
-import com.grupo10.app.rents.model.Quadbike;
+import com.grupo10.app.rents.entities.Quadbike;
+import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

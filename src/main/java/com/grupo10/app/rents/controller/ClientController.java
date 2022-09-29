@@ -4,8 +4,11 @@
  */
 package com.grupo10.app.rents.controller;
 
-import com.grupo10.app.rents.model.IQuadbikeRepository;
-import com.grupo10.app.rents.model.Quadbike;
+import com.grupo10.app.rents.entities.Client;
+import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
+import com.grupo10.app.rents.entities.Quadbike;
+import com.grupo10.app.rents.interfaces.IClientRepository;
+import com.grupo10.app.rents.service.ClientService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,21 +26,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClientController {
     
     @Autowired
-    IQuadbikeRepository repository;
+    ClientService service;
     
     @GetMapping("/all")
-    public Iterable<Quadbike> getQuadbikes(){
-        Iterable<Quadbike> response = repository.findAll();
-        
+    public Iterable<Client> get(){
+        Iterable<Client> response = service.get();        
         return response;
     }
     
     @PostMapping("/save")
-    public String createQuadbike(@RequestBody Quadbike request){
+    public String create(@RequestBody Client request){
         
-        repository.save(request);
-        
-        return "crated....";
+        return service.create(request);
     }
 
 
