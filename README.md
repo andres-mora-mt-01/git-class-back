@@ -57,3 +57,15 @@ Permite ejecutar la aplicación de Java en el servidor, una vez hecho esto la ap
 La & al final es para que el proyecto se ejecute en segundo plano 
 
 `sudo java -jar -Dspring.profiles.active=prod xxxx.jar &`
+
+Permite la copia desde mi carpeta local a mi servidor directamente según lo visto en clase:
+
+`scp -i nuestrallave nuestroarchivo ubuntu@nuestraip`
+
+ejemplo para subir un archivo llamado saludo.txt en la carpeta home(la que nos muestra apenas nos logueamos con ssh) por eso se pone un . despúes de los dos puntos:
+
+`scp -i ssh-key-2022-09-20.key saludo.txt ubuntu@193.122.145.65:.`
+
+Si quisieramos copiar el archivo a otro lugar deberíamos poner la dirección del otro lugar por ejemplo /var/www/html
+
+`scp -i ssh-key-2022-09-20.key saludo.txt ubuntu@193.122.145.65:/var/www/html`

@@ -29,6 +29,11 @@ public class QuadbikeService {
         Iterable<Quadbike> response = repository.findAll();
         return response;
     }
+    
+    public Optional<Quadbike> get(Integer id) {
+        Optional<Quadbike> response = repository.findById(id);
+        return response;
+    }
 
     public String create(Quadbike request) {
 
@@ -43,5 +48,20 @@ public class QuadbikeService {
             return "falta el nombre";
         }
 
+    }
+    
+    public Quadbike update(Quadbike quadbike) {
+        Quadbike quadbikeToUpdate=new Quadbike();
+        if(repository.existsById(quadbike.getId())){
+            quadbikeToUpdate = quadbike;
+            repository.save(quadbikeToUpdate);
+        }        
+        return quadbikeToUpdate;
+    }
+    
+    public Boolean delete(Integer id) {
+        repository.deleteById(id);
+        Boolean deleted = true;
+        return deleted;
     }
 }
