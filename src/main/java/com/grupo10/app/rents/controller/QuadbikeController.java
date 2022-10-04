@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.grupo10.app.rents.service.QuadbikeService;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,11 @@ public class QuadbikeController {
     @GetMapping("/{id}")
     public Optional<Quadbike> get(@PathVariable("id") Integer id) {
         return service.get(id);
+    }
+    
+    @GetMapping("/reports/{id}")
+    public List<Quadbike> getReport(@PathVariable("id") Integer id) {
+        return service.getReport();
     }
 
     @PostMapping("/save")

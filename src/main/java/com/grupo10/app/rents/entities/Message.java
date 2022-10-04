@@ -37,13 +37,17 @@ public class Message implements Serializable {
     private Integer idMessage;
     @Column
     private String messageText;
-    @Column
+    @ManyToOne
+    @JoinColumn(name="quadbikeId")
+    @JsonIgnoreProperties({"messages","reservations"})
     private Quadbike quadbike;
     
     //@ManyToOne(cascade = CascadeType.ALL)
     //@JsonIgnoreProperties("messages")
     //@JoinColumn(name="message_id")
-    @Column
+    @ManyToOne
+    @JoinColumn(name="clientId")
+    @JsonIgnoreProperties({"messages","reservations"})
     private Client client;  
     
     

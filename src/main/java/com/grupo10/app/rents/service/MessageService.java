@@ -6,8 +6,10 @@ package com.grupo10.app.rents.service;
 
 import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
 import com.grupo10.app.rents.entities.Category;
+import com.grupo10.app.rents.entities.Message;
 import com.grupo10.app.rents.interfaces.ICategoryRepository;
 import com.grupo10.app.rents.entities.Quadbike;
+import com.grupo10.app.rents.interfaces.IMessageRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,28 +22,21 @@ import org.springframework.stereotype.Service;
 public class MessageService {
 
     @Autowired
-    IQuadbikeRepository repository;
+    IMessageRepository repository;
 
     @Autowired
     ICategoryRepository categoryRepository; 
 
-    public Iterable<Quadbike> get() {
-        Iterable<Quadbike> response = repository.findAll();
+    public Iterable<Message> get() {
+        Iterable<Message> response = repository.findAll();
         return response;
     }
 
-    public String create(Quadbike request) {
+    public Message create(Message request) {
 
-        Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
-        if (!cat.isEmpty()) {
-            request.setCategory(cat.get());
-        }
-        if (request.getName() != null) {
-            repository.save(request);
-            return "created....";
-        } else {
-            return "falta el nombre";
-        }
+        //Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
+            return repository.save(request);
+        
 
     }
 }

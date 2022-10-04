@@ -8,6 +8,9 @@ import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
 import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.interfaces.ICategoryRepository;
 import com.grupo10.app.rents.entities.Quadbike;
+import com.grupo10.app.rents.repository.QuadbikeRepository;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +23,13 @@ import org.springframework.stereotype.Service;
 public class QuadbikeService {
 
     @Autowired
-    IQuadbikeRepository repository;
+    QuadbikeRepository repository;
 
     @Autowired
     ICategoryRepository categoryRepository; 
 
     public Iterable<Quadbike> get() {
-        Iterable<Quadbike> response = repository.findAll();
+        Iterable<Quadbike> response = repository.getAll();
         return response;
     }
     
@@ -63,5 +66,18 @@ public class QuadbikeService {
         repository.deleteById(id);
         Boolean deleted = true;
         return deleted;
+    }
+    
+    public List<Quadbike> getReport(){
+        
+        
+        List<Quadbike> response = new ArrayList<>();
+        
+        //logica de coomo procesar la petición al repositorio
+        List<Object[]> result = repository.getReport();
+        
+        
+        return response;
+        
     }
 }
