@@ -42,8 +42,8 @@ public class QuadbikeController {
         return service.get(id);
     }
     
-    @GetMapping("/reports/{id}")
-    public List<Quadbike> getReport(@PathVariable("id") Integer id) {
+    @GetMapping("/reports")
+    public List<Object[]> getReport() {
         return service.getReport();
     }
 

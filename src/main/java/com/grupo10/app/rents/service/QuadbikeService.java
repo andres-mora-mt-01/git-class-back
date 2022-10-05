@@ -68,7 +68,7 @@ public class QuadbikeService {
         return deleted;
     }
     
-    public List<Quadbike> getReport(){
+    public List<Object[]> getReport(){
         
         
         List<Quadbike> response = new ArrayList<>();
@@ -77,7 +77,7 @@ public class QuadbikeService {
         List<Object[]> result = repository.getReport();
         
         
-        return response;
+        return result;
         
     }
 }
