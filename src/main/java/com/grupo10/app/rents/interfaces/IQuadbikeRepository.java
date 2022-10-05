@@ -15,9 +15,8 @@ import org.springframework.stereotype.Repository;
  *
  * @author Andres
  */
-@Repository
 public interface IQuadbikeRepository extends CrudRepository<Quadbike, Integer> {
  
-    @Query("SELECT c.year, COUNT(c.year) from tb_quadbike AS c group by c.year order by COUNT(c.year) DESC")
+    @Query("SELECT c.year, COUNT(c.year) from Quadbike AS c group by c.year order by COUNT(c.year) DESC")
     public List<Object[]> countTotalQuadbikeByYear();
 }

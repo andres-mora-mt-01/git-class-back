@@ -9,11 +9,13 @@ import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Andres
  */
+@Repository
 public class QuadbikeRepository {
     
     @Autowired
