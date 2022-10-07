@@ -5,9 +5,12 @@
 package com.grupo10.app.rents.service;
 
 import com.grupo10.app.rents.entities.Client;
+import com.grupo10.app.rents.entities.Quadbike;
 
 import com.grupo10.app.rents.interfaces.IClientRepository;
 import com.grupo10.app.rents.interfaces.IMessageRepository;
+import com.grupo10.app.rents.repository.ClientRepository;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +23,10 @@ import org.springframework.stereotype.Service;
 public class ClientService {
 
     @Autowired
-    IClientRepository repository;
-
-    @Autowired
-    IMessageRepository messageRepository;
+    ClientRepository repository;    
 
     public Iterable<Client> get() {
-        Iterable<Client> response = repository.findAll();
+        Iterable<Client> response = repository.getAll();
         return response;
     }
 
@@ -39,5 +39,24 @@ public class ClientService {
             return "falta el nombre";
         }
 
+    }
+    
+        public Client update(Client client) {
+        Client clientToUpdate=new Client();
+        
+        if(repository.existsById(client.getIdClient())){
+            Optional<Client> currentClient = repository.findById(client.getIdClient());
+            clientToUpdate = client;            
+            clientToUpdate.setMessages(currentClient.get().getMessages());
+            clientToUpdate.setReservations(currentClient.get().getReservations());
+            repository.save(clientToUpdate);
+        }        
+        return clientToUpdate;
+    }
+    
+    public Boolean delete(Integer id) {
+        repository.deleteById(id);
+        Boolean deleted = true;
+        return deleted;
     }
 }

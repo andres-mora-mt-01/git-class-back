@@ -55,8 +55,13 @@ public class QuadbikeService {
     
     public Quadbike update(Quadbike quadbike) {
         Quadbike quadbikeToUpdate=new Quadbike();
+        
         if(repository.existsById(quadbike.getId())){
+            Optional<Quadbike> currentQuadbike = repository.findById(quadbike.getId());
             quadbikeToUpdate = quadbike;
+            quadbikeToUpdate.setCategory(currentQuadbike.get().getCategory());
+            quadbikeToUpdate.setMessages(currentQuadbike.get().getMessages());
+            quadbikeToUpdate.setReservations(currentQuadbike.get().getReservations());
             repository.save(quadbikeToUpdate);
         }        
         return quadbikeToUpdate;
