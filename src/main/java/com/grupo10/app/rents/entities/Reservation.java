@@ -4,6 +4,7 @@
  */
 package com.grupo10.app.rents.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.sql.Date;
@@ -35,18 +36,26 @@ public class Reservation implements Serializable {
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     @Column(name="id")    
     private Integer idReservation;
+    
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)    
     private Date startDate;
+    
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)    
     private Date devolutionDate;    
+    
     @Column
-    private String status;
-    @Column
+    private String status="created";
+    
+    @ManyToOne
+    @JoinColumn(name = "quadbikeId")
+    @JsonIgnoreProperties("reservations")    
     private Quadbike quadbike;  
     
     @ManyToOne
     @JoinColumn(name="clientId")
-    @JsonIgnoreProperties({"client"})    
+    @JsonIgnoreProperties({"reservations","messages"})    
     private Client client;
     
     @Column

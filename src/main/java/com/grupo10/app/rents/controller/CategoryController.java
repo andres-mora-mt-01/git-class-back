@@ -41,18 +41,18 @@ public class CategoryController {
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Category request) {
-        service.create(request);
+    public Category create(@RequestBody Category request) {
+        return service.create(request);
     }
 
     @PutMapping("/update")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void update(@RequestBody Category request) {
-        service.update(request);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category update(@RequestBody Category request) {
+        return service.update(request);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Integer id) {
         service.delete(id);
     }

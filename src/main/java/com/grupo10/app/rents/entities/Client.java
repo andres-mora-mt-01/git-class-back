@@ -35,12 +35,16 @@ public class Client implements Serializable {
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     @Column(name="id")    
     private Integer idClient;
-    @Column
-    private String name;
+    
     @Column
     private String email;
+    
     @Column
     private String password;
+    
+    @Column
+    private String name;
+    
     @Column
     private Integer age;
     
@@ -51,7 +55,7 @@ public class Client implements Serializable {
     private List<Message> messages;
     
     @OneToMany(cascade={CascadeType.PERSIST},mappedBy="client")
-    @JsonIgnoreProperties("reservation")
+    @JsonIgnoreProperties("client")
     private List<Reservation> reservations;  
     
     

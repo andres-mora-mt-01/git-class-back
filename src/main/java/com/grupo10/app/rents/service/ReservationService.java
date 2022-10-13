@@ -4,11 +4,20 @@
  */
 package com.grupo10.app.rents.service;
 
-import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
-import com.grupo10.app.rents.entities.Category;
-import com.grupo10.app.rents.interfaces.ICategoryRepository;
-import com.grupo10.app.rents.entities.Quadbike;
-import java.util.Optional;
+import com.grupo10.app.rents.dto.ReportClientDto;
+import com.grupo10.app.rents.dto.ReportStatusDto;
+
+import com.grupo10.app.rents.entities.Client;
+
+import com.grupo10.app.rents.entities.Reservation;
+import com.grupo10.app.rents.repository.ClientRepository;
+import com.grupo10.app.rents.repository.ReservationRepository;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,28 +29,61 @@ import org.springframework.stereotype.Service;
 public class ReservationService {
 
     @Autowired
-    IQuadbikeRepository repository;
+    ReservationRepository repository;
 
     @Autowired
-    ICategoryRepository categoryRepository; 
+    ClientRepository clientRepository;
 
-    public Iterable<Quadbike> get() {
-        Iterable<Quadbike> response = repository.findAll();
+    public Iterable<Reservation> get() {
+        Iterable<Reservation> response = repository.getAll();
         return response;
     }
 
-    public String create(Quadbike request) {
+    public String create(Reservation request) {
 
-        Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
-        if (!cat.isEmpty()) {
-            request.setCategory(cat.get());
+        repository.save(request);
+        return "";
+
+    }
+
+    public List<ReportClientDto> getClientReport() {
+
+        List<ReportClientDto> report = new ArrayList<ReportClientDto>();
+        List<Object[]> reportData = repository.getReport();
+
+        for (int i = 0; i < reportData.size(); i++) {
+            ReportClientDto reportClientDto = new ReportClientDto();
+            reportClientDto.client = (Client) reportData.get(i)[0];
+            reportClientDto.total = (Long) reportData.get(i)[1];
+            report.add(reportClientDto);
         }
-        if (request.getName() != null) {
-            repository.save(request);
-            return "created....";
+        return report;
+
+    }
+
+    public List<Reservation> getReportDates(String dateOne, String dateTwo) {
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+        Date a = new Date();
+        Date b = new Date();
+        try {
+            a = parser.parse(dateOne);
+            b = parser.parse(dateTwo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (a.before(b)) {
+            return repository.getReservationsPeriod(a, b);
         } else {
-            return "falta el nombre";
+            return new ArrayList<>();
         }
+
+    }
+
+    public ReportStatusDto getReservationsStatusReport() {
+        ReportStatusDto reportStatusDto = new ReportStatusDto();
+        reportStatusDto.completed=repository.getReservationsByStatus("completed").size();
+        reportStatusDto.cancelled=repository.getReservationsByStatus("cancelled").size();        
+        return reportStatusDto;
 
     }
 }

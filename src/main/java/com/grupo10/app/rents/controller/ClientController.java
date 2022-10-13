@@ -43,18 +43,18 @@ public class ClientController {
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Client request) {
-        service.create(request);
+    public Client create(@RequestBody Client request) {
+        return service.create(request);
     }
 
     @PutMapping("/update")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void update(@RequestBody Client request) {
-        service.update(request);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Client update(@RequestBody Client request) {
+        return service.update(request);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Integer id) {
         service.delete(id);
     }

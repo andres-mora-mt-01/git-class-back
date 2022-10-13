@@ -46,9 +46,9 @@ public class Quadbike implements Serializable {
     @Column
     private String description;    
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnoreProperties("quadbikes")
-    @JoinColumn(name="category_id")
+    @JoinColumn(name="categoryId")
     private Category category;    
     
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "quadbike")

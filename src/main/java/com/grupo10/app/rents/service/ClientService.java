@@ -23,37 +23,32 @@ import org.springframework.stereotype.Service;
 public class ClientService {
 
     @Autowired
-    ClientRepository repository;    
+    ClientRepository repository;
 
     public Iterable<Client> get() {
         Iterable<Client> response = repository.getAll();
         return response;
     }
 
-    public String create(Client request) {
+    public Client create(Client request) {
 
-        if (request.getName() != null) {
-            repository.save(request);
-            return "created....";
-        } else {
-            return "falta el nombre";
-        }
+        return repository.save(request);
 
     }
-    
-        public Client update(Client client) {
-        Client clientToUpdate=new Client();
-        
-        if(repository.existsById(client.getIdClient())){
-            Optional<Client> currentClient = repository.findById(client.getIdClient());
-            clientToUpdate = client;            
+
+    public Client update(Client client) {
+        Client clientToUpdate = new Client();
+
+        Optional<Client> currentClient = repository.findById(client.getIdClient());
+        if (!currentClient.isEmpty()) {            
+            clientToUpdate = client;
             clientToUpdate.setMessages(currentClient.get().getMessages());
             clientToUpdate.setReservations(currentClient.get().getReservations());
-            repository.save(clientToUpdate);
-        }        
+            clientToUpdate=repository.save(clientToUpdate);
+        }
         return clientToUpdate;
     }
-    
+
     public Boolean delete(Integer id) {
         repository.deleteById(id);
         Boolean deleted = true;
