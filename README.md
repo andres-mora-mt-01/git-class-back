@@ -69,3 +69,17 @@ ejemplo para subir un archivo llamado saludo.txt en la carpeta home(la que nos m
 Si quisieramos copiar el archivo a otro lugar deberíamos poner la dirección del otro lugar por ejemplo /var/www/html
 
 `scp -i ssh-key-2022-09-20.key saludo.txt ubuntu@193.122.145.65:/var/www/html`
+
+Comando para conocer que aplicación está usando el puerto 8080 Java
+
+`sudo lsof -i :8080`
+->pid
+
+Comando para detener el proceso del puerto 8080
+sudo kill -9 ####
+
+Para borrar la base de datos
+`drop database db_moto2;`
+
+Para crear la base de datos
+`create database db_moto2;`
